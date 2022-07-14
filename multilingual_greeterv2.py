@@ -100,10 +100,62 @@ def greet(name: str, greetings_options: Dict[int, str], lang_choice: int) -> Non
 
     print(greetings_options[lang_choice], name)
 
+def choose_mode():
+    print("Would you like to enter admin or user mode?")
+    print("1. admin mode    2. user mode")
+    user_input = int(input(">> "))
+    if user_input == 1:
+        print("Entering admin mode...")
+        admin_mode()
+    elif user_input == 2:
+        print("Entering user mode...")
+    else:
+        print("That's not an option. Continuing on.")
+
+def admin_mode():
+    print("Do you want to add a new language or edit a current one?")
+    print("1. Add new language  2. Edit an existing language    3. Quit")
+    user_input = int(input(">> "))
+    if user_input == 1:
+        add_language()
+    elif user_input == 2:
+        update_existing_language()
+    else:
+        print("Switching to user mode...")
+
+def add_language():
+    print("What language will you be adding?")
+    new_language = input(">> ")
+    new_key = len(lang_dict) + 1
+    lang_dict[new_key] = new_language
+    print("Write 'What's your name' in the language you're adding.")
+    new_name_prompt = input(">> ")
+    name_prompt_dict[new_key] = new_name_prompt
+    print("Write 'Hello' in the language you're adding.")
+    new_greeting = input(">> ")
+    greetings_dict[new_key] = new_greeting
+
+def update_existing_language():
+    print("Which language are you updating?")
+    print_language_options(lang_dict)
+    language_option = int(input(">> "))
+    print("What is your new greeting?")
+    new_greeting = input(">> ")
+    greetings_dict[language_option] = new_greeting
+    
+
+    
+
+
+
+
+
+
 
 
 
 if __name__ == '__main__':
+    choose_mode()
     print_language_options(lang_dict)
     chosen_lang = language_input()
     while language_choice_is_valid(lang_dict, chosen_lang) is False:
